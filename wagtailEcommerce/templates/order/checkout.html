@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li class="active">Check out</li>
+            </ol>
+        </div><!--/breadcrums-->
+
+        
+            
+
+        <div class="shopper-informations">
+            <div class="row">
+                
+                <div class="col-sm-6 clearfix">
+                    <div class="bill-to" id="shipping-info">
+                        <p>Shipping Adress</p>
+                        <form id="form">
+                        <div class="form-one">
+                            
+                                <input type="text" name="name" placeholder="First Name *" required>
+                                <input type="text" name="surname" placeholder="Last Name *" required>
+                                <input type="text" name="email" placeholder="Email*" required>
+                                <input type="text" name="company" placeholder="Company Name">
+                                <input type="text" name="phone" placeholder="Phone">
+                                <input type="text" name="mobilephone" placeholder="Mobile Phone *" required>
+                                
+                            
+                        </div>
+                        <div class="form-two">
+                                <input type="text" name="address" placeholder="Address 1 *" required>
+                                <input type="text" name="address2" placeholder="Address 2">
+                                <input type="text" name="zipcode"placeholder="Zip / Postal Code *" required>
+                                <input type="text" name="country" placeholder="Country" required>
+                                <input type="text" name="state" placeholder="State" required>
+                                
+                            </div>
+                            <input type="checkbox" id="bill-to-check"> Shipping and bill address different</label>
+                            <hr>
+                                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                            </form>
+                        
+                        
+                    </div>
+                </div>
+                <div class="col-sm-6 clearfix ">
+                    <div class="bill-to hidden" id="billing-info">
+                        <p>Billing Adress</p>
+                        <form id="bill-form">
+                        <div class="form-one">
+                            
+                                <input type="text" name="name" placeholder="First Name *" required>
+                                <input type="text" name="surname" placeholder="Last Name *" required>
+                                <input type="text" name="email" placeholder="Email*" required>
+                                <input type="text" name="company" placeholder="Company Name" >
+                                <input type="text" name="phone" placeholder="Phone">
+                                <input type="text" name="mobilephone" placeholder="Mobile Phone *" required>
+                                
+                            
+                        </div>
+                        <div class="form-two">
+                                <input type="text" name="address" placeholder="Address 1 *" required>
+                                <input type="text" name="address2" placeholder="Address 2">
+                                <input type="text" name="zipcode"placeholder="Zip / Postal Code *" required>
+                                <input type="text" name="country" placeholder="Country" required>
+                                <input type="text" name="state" placeholder="State" required>
+                                
+                            </div>
+                            
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>			
+            </div>
+        </div>
+        
+        <div class="review-payment">
+            <h2>Review & Payment</h2>
+        </div>
+
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="{{item.product.image.url}}" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{item.product.name}}</a></h4>
+                            <p>Web ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>${{item.product.price|floatformat:2}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart cart_quantity_up"> + </a>
+                                <p class="quantity">{{item.quantity}}</p>
+                                <a data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart cart_quantity_up"> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">${{item.get_total|floatformat:2}}</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                        <td colspan="2">
+                            <table class="table table-condensed total-result">
+                                <tr>
+                                    <td>Cart Sub Total</td>
+                                    <td>${{order.get_cart_total|floatformat:2}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Exo Tax</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr class="shipping-cost">
+                                    <td>Shipping Cost</td>
+                                    <td>Free</td>										
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td><span>${{order.get_cart_total|floatformat:2}}</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="payment-options hidden" id="payment-info">
+                <span>
+                    <button id="make-payment">Make payment</button>
+                </span>
+                
+            </div>
+    </div>
+</section> <!--/#cart_items-->
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+{% block content %}
+<br>
+{% for product in self.products  %}
+{% image product.image scale-100 as img %}
+<div class="card" style="width: 18rem;">
+  <img src="{{img.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text">{{product.description}}</p>
+    <a data-product="{{product.id}}" data-action="add" class="btn btn-primary update-cart">Add to cart</a>
+  </div>
+</div>
+
+<br><br><br>
+{{request.user}}
+{% endfor %}
+<a href="/order/cart/" class="btn btn-primary update-cart">cart</a>
+{% endblock content %}
